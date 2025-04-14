@@ -12,6 +12,14 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
+   # Team routes
+   resources :teams, only: [:index, :show, :create] do
+    member do
+      patch 'update_slot/:slot', to: 'teams#update'
+      delete 'slot/:slot', to: 'teams#destroy_member'
+    end
+  end
+
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 end
